@@ -5,25 +5,28 @@
         Sign-in busy={{ busy }}
       </div>
       <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" v-model="username">
+        <label for="username" class="text-red-500 ">Username</label>
+        <input
+          type="text" id="username" v-model="username" :disabled="busy"
+          class="px-10 py-5 pl-0 text-pink-500 border-2 rounded-lg"
+        >
         {{ username }}
       </div>
       <div>
         <label for="password">Password</label>
-        <input type="text" id="password" v-model="password">
+        <input type="text" id="password" v-model="password" :disabled="busy">
         {{ password }}
       </div>
       <div>
-        <input type="checkbox" id="remember" v-model="remember">
+        <input type="checkbox" id="remember" v-model="remember" :disabled="busy">
         <label for="remember">Remember username?</label>
         {{ remember }}
       </div>
       <div>
-        <button type="button" :disabled="lock" @click="signin">
+        <button type="button" :disabled="lock || busy" @click="signin">
           Sign-In {{ lock }}
         </button>
-        <button type="reset">
+        <button type="reset" :disabled="busy">
           Reset
         </button>
       </div>
@@ -62,6 +65,7 @@ export default {
 
   methods: {
     signin() {
+      // console.log('xxx')
       this.busy = true
       setTimeout(() => {
         this.busy = false

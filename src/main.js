@@ -3,7 +3,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import generatedRoutes from 'virtual:generated-pages'
 import { setupLayouts } from 'virtual:generated-layouts'
 
-// import 'windi.css'
+import 'windi.css'
 
 import App from './app.vue'
 
