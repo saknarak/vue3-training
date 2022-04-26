@@ -21,7 +21,10 @@
         </div>
         <div class="flex flex-col px-3">
           <label for="password" class="h-8 leading-8">Type</label>
-          <select v-model="type">
+          <select
+            v-model="type"
+            class="border-2 rounded-md h-10 px-2"
+          >
             <option
               v-for="({ value, text }, idx) in filteredTypeList"
               :key="value"
