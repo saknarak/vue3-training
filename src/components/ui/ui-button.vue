@@ -1,10 +1,12 @@
 <template>
   <button
     type="button"
-    class="h-10 w-30 bg-blue-600 text-white rounded-md"
+    class="h-10 w-30 bg-blue-600 text-white rounded-md flex gap-2 justify-center items-center"
     :title="text"
   >
-    <span class="material-icons">home</span>
+    <slot name="icon">
+      <span v-if="icon" class="icon">{{ icon }}</span>
+    </slot>
     <slot>
       <b>Somsak</b>
     </slot>
@@ -17,6 +19,9 @@ export default {
       type: String,
       default: 'Button Text',
       // required: false,
+    },
+    icon: {
+      type: String,
     },
   },
   data() {

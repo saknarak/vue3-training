@@ -63,10 +63,15 @@
             :disabled="lock || busy"
             @click="signin"
           >
+            Sign-In
+            <template #icon>
+              <img src="../assets/logo.png" class="w-6 h-6">
+            </template>
           </ui-button>
           <ui-button
             type="reset" :disabled="busy"
             class="border-red-600 bg-white border-2 rounded-md"
+            icon="clear"
           >
             Reset
           </ui-button>
