@@ -13,12 +13,40 @@
           >
         </div>
         <div class="flex flex-col px-3">
-          <label for="password" class="h-8 leading-8">Password</label>
+          <label for="password" class="h-8 leading-8">Password {{ lock }}</label>
           <input
             type="password" id="password" v-model="password" :disabled="busy"
             class="border-2 rounded-md h-10 px-2"
           >
         </div>
+        <div class="flex flex-col px-3">
+          <label for="password" class="h-8 leading-8">Type</label>
+          <select v-model="type">
+            <option
+              v-for="({ value, text }, idx) in filteredTypeList"
+              :key="value"
+              :value="value"
+            >
+              {{ text }} {{ idx }}
+            </option>
+          </select>
+        </div>
+        <!-- <template v-for="n in 5" :key="n">
+          <div>AAA</div>
+          <div>BBB</div>
+        </template> -->
+        <!-- <div class="flex flex-col px-3">
+          <label for="password" class="h-8 leading-8">Type</label>
+          <select>
+            <option
+              v-for="(type2, code) in type2List"
+              :key="code"
+              :value="code"
+            >
+              {{ type2 }}
+            </option>
+          </select>
+        </div> -->
         <div class="px-3 h-10 flex items-center gap-2">
           <input type="checkbox" id="remember" v-model="remember" :disabled="busy" class="w-5 h-5">
           <label for="remember">Remember username?</label>
@@ -47,6 +75,7 @@
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -55,25 +84,43 @@ export default {
       remember: false,
       ok: true,
       busy: false,
+      type: 'S',
+      typeList: [
+        { value: 'S', text: 'Student' },
+        { value: 'T', text: 'Teacher' },
+        { value: 'P', text: 'Parent' },
+      ],
+      type2List: {
+        S: 'Student',
+        T: 'Teacher',
+        P: 'Parent',
+      },
     }
   },
 
   computed: {
     lock() {
-      return this.username === '' || this.password === ''
+      return !this.username || !this.password
+    },
+    filteredTypeList() {
+      return this.typeList.filter(x => x.value !== 'P')
     },
   },
 
-  // created() {
-  //   console.log('created')
-  //   let n = 1
-  //   setInterval(() => {
-  //     this.username = 'somsak' + n
-  //     n++
-  //     this.remember = !this.remember
-  //     console.log('oooookkkkkkk')
-  //   }, 1000)
-  // },
+  created() {
+    console.log('created')
+    let n = 1
+    clearInterval(this.timer)
+    this.timer = setInterval(() => {
+      console.log('oooookkkkkkk', n)
+    }, 1000)
+  },
+  mounted() {
+    this.$refs
+  },
+  beforeUnmount() {
+    clearInterval(this.timer)
+  },
 
   methods: {
     signin() {
