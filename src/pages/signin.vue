@@ -8,13 +8,16 @@
         <div class="flex flex-col px-3">
           <label for="username" class="h-8 leading-8">User name</label>
           <input
+            ref="username"
             type="text" id="username" v-model="username" :disabled="busy"
             class="border-2 rounded-md h-10 px-2"
+            @keyup.enter.ctrl="onUsernameKeyup"
           >
         </div>
         <div class="flex flex-col px-3">
           <label for="password" class="h-8 leading-8">Password {{ lock }}</label>
           <input
+            ref="password"
             type="password" id="password" v-model="password" :disabled="busy"
             class="border-2 rounded-md h-10 px-2"
           >
@@ -55,18 +58,19 @@
           <label for="remember">Remember username?</label>
         </div>
         <div class="p-3 flex gap-3 justify-center">
-          <button
-            type="button" :disabled="lock || busy" @click="signin"
-            class="h-10 w-30 bg-blue-600 text-white rounded-md"
+          <ui-button
+            ref="signin"
+            :disabled="lock || busy"
+            @click="signin"
+            text="Sign-In"
           >
-            Sign-In
-          </button>
-          <button
+          </ui-button>
+          <ui-button
             type="reset" :disabled="busy"
-            class="h-10 w-30 border-blue-600 border-2 rounded-md"
+            class="border-red-600 bg-white border-2 rounded-md"
+            text="Reset..."
           >
-            Reset
-          </button>
+          </ui-button>
         </div>
       </form>
     </div>
@@ -82,7 +86,7 @@
 export default {
   data() {
     return {
-      username: '',
+      username: 'somsak',
       password: '',
       remember: false,
       ok: true,
@@ -119,7 +123,8 @@ export default {
     }, 1000)
   },
   mounted() {
-    this.$refs
+    // document.getElementById('username').focus()
+    this.$refs.username.focus()
   },
   beforeUnmount() {
     clearInterval(this.timer)
@@ -132,6 +137,12 @@ export default {
       setTimeout(() => {
         this.busy = false
       }, 3000)
+    },
+    onUsernameKeyup(evt) {
+      // console.log('xxxx')
+      // if (evt.code === 'Enter') {
+      this.$refs.password.focus()
+      // }
     },
   },
 }
