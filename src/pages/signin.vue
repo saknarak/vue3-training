@@ -1,9 +1,6 @@
 <template>
   <div class="flex justify-center items-center min-h-screen">
-    <div class="rounded-lg shadow-gray-400 shadow-md bg-white">
-      <div class="px-3 h-10 leading-10 bg-blue-900 text-white rounded-t-md text-xl">
-        Sign-in
-      </div>
+    <ui-card>
       <form class="pt-3">
         <div class="flex flex-col px-3">
           <label for="username" class="h-8 leading-8">User name</label>
@@ -57,6 +54,76 @@
           <input type="checkbox" id="remember" v-model="remember" :disabled="busy" class="w-5 h-5">
           <label for="remember">Remember username?</label>
         </div>
+      </form>
+
+      <template #title>
+        Sign-in
+      </template>
+      <template #actions>
+        <ui-button
+          ref="signin"
+          :disabled="lock || busy"
+          @click="signin"
+        >
+          Sign-In
+          <template #icon>
+            <img src="../assets/logo.png" class="w-6 h-6">
+          </template>
+        </ui-button>
+        <ui-button
+          type="reset" :disabled="busy"
+          class="border-red-600 bg-white text-black border-2 rounded-md"
+          icon="clear"
+        >
+          <template #icon>
+            <img src="../assets/logo.png" class="w-6 h-6">
+          </template>
+          Reset
+        </ui-button>
+      </template>
+    </ui-card>
+    <!--
+    <div class="rounded-lg shadow-gray-400 shadow-md bg-white">
+      <div class="px-3 h-10 leading-10 bg-blue-900 text-white rounded-t-md text-xl">
+        Sign-in
+      </div>
+      <form class="pt-3">
+        <div class="flex flex-col px-3">
+          <label for="username" class="h-8 leading-8">User name</label>
+          <input
+            ref="username"
+            type="text" id="username" v-model="username" :disabled="busy"
+            class="border-2 rounded-md h-10 px-2"
+            @keyup.enter.ctrl="onUsernameKeyup"
+          >
+        </div>
+        <div class="flex flex-col px-3">
+          <label for="password" class="h-8 leading-8">Password {{ lock }}</label>
+          <input
+            ref="password"
+            type="password" id="password" v-model="password" :disabled="busy"
+            class="border-2 rounded-md h-10 px-2"
+          >
+        </div>
+        <div class="flex flex-col px-3">
+          <label for="password" class="h-8 leading-8">Type</label>
+          <select
+            v-model="type"
+            class="border-2 rounded-md h-10 px-2"
+          >
+            <option
+              v-for="({ value, text }, idx) in filteredTypeList"
+              :key="value"
+              :value="value"
+            >
+              {{ text }} {{ idx }}
+            </option>
+          </select>
+        </div>
+        <div class="px-3 h-10 flex items-center gap-2">
+          <input type="checkbox" id="remember" v-model="remember" :disabled="busy" class="w-5 h-5">
+          <label for="remember">Remember username?</label>
+        </div>
         <div class="p-3 flex gap-3 justify-center">
           <ui-button
             ref="signin"
@@ -70,14 +137,17 @@
           </ui-button>
           <ui-button
             type="reset" :disabled="busy"
-            class="border-red-600 bg-white border-2 rounded-md"
+            class="border-red-600 bg-white text-black border-2 rounded-md"
             icon="clear"
           >
+            <template #icon>
+              <img src="../assets/logo.png" class="w-6 h-6">
+            </template>
             Reset
           </ui-button>
         </div>
       </form>
-    </div>
+    </div> -->
   </div>
 
   <div v-if="busy" class="fixed top-0 bottom-0 left-0 right-0 opacity-80 bg-gray-400">
