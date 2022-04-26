@@ -5,7 +5,10 @@
         <label for="username" class="h-8 leading-8">User name</label>
         <input
           ref="username"
-          type="text" id="username" v-model="username" :disabled="busy"
+          type="text" id="username"
+          :value="form.username"
+          @input="$emit('update:form', { ...form, username: $event.target.value })"
+          :disabled="busy"
           class="border-2 rounded-md h-10 px-2"
           @keyup.enter.ctrl="onUsernameKeyup"
         >
@@ -86,12 +89,25 @@
 <script>
 
 export default {
+  props: {
+    form: {
+      type: Object,
+      default() {
+        return {
+          username: '',
+          password: '',
+          remember: false,
+        }
+      },
+    },
+  },
   emits: [
     'success',
+    'error',
+    'update:form',
   ],
   data() {
     return {
-      username: 'somsak',
       password: '',
       remember: false,
       ok: true,
@@ -120,19 +136,19 @@ export default {
   },
 
   created() {
-    console.log('created')
-    let n = 1
-    clearInterval(this.timer)
-    this.timer = setInterval(() => {
-      console.log('oooookkkkkkk', n)
-    }, 1000)
+    // console.log('created')
+    // let n = 1
+    // clearInterval(this.timer)
+    // this.timer = setInterval(() => {
+    //   console.log('oooookkkkkkk', n)
+    // }, 1000)
   },
   mounted() {
     // document.getElementById('username').focus()
     this.$refs.username.focus()
   },
   beforeUnmount() {
-    clearInterval(this.timer)
+    // clearInterval(this.timer)
   },
 
   methods: {
@@ -141,7 +157,11 @@ export default {
       this.busy = true
       setTimeout(() => {
         this.busy = false
-        this.$emit('success', { id: 5, name: 'Somsak', username: this.username})
+        if (this.username === 'x') {
+          this.$emit('error', {})
+        } else {
+          this.$emit('success', { id: 5, name: 'Somsak', username: this.username})
+        }
       }, 3000)
     },
     onUsernameKeyup(evt) {

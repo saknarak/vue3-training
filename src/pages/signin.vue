@@ -4,9 +4,11 @@
       LOGO
     </div>
     <signin-box
+      v-model:form="form"
       @success="signinSuccess"
       @error="singinError"
-    ></signin-box>
+    >
+    </signin-box>
   </div>
 
   <div v-if="busy" class="fixed top-0 bottom-0 left-0 right-0 opacity-80 bg-gray-400">
@@ -16,6 +18,15 @@
 
 <script>
 export default {
+  data() {
+    return {
+      form: {
+        username: 'somchai',
+        password: '',
+        remember: false,
+      },
+    }
+  },
   methods: {
     signinSuccess(user) {
       console.log('user=', user)
