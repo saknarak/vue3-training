@@ -62,14 +62,13 @@
             ref="signin"
             :disabled="lock || busy"
             @click="signin"
-            text="Sign-In"
           >
           </ui-button>
           <ui-button
             type="reset" :disabled="busy"
             class="border-red-600 bg-white border-2 rounded-md"
-            text="Reset..."
           >
+            Reset
           </ui-button>
         </div>
       </form>

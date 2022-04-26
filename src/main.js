@@ -4,6 +4,7 @@ import generatedRoutes from 'virtual:generated-pages'
 import { setupLayouts } from 'virtual:generated-layouts'
 
 import 'windi.css'
+// import '../public/iconfont/material-icons.css'
 
 import App from './app.vue'
 
