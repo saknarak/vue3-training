@@ -1,0 +1,35 @@
+<template>
+  <h1>Student List</h1>
+  <ui-table :rows="studentList" :cols="columns">
+    <template #gender="{ row }">
+      <span class="icon" :title="row.gender">{{ row.gender === 'M' ? 'male' : 'female' }}</span>
+    </template>
+  </ui-table>
+  <div>Footer</div>
+</template>
+
+<script>
+export default {
+  data() {
+    const studentList = []
+    for (let i = 0; i < 10; i++) {
+      studentList.push({
+        id: i + 1,
+        code: `6501${String(i + 1).padStart(4, '0')}`,
+        fname: `Name ${i + 1}`,
+        lname: `Lname ${i + 1}`,
+        age: 25 + i,
+        gender: Math.random() < 0.5 ? 'M' : 'F',
+      })
+    }
+    return {
+      studentList,
+      columns: [
+        { id: 'code', text: 'Student Code' },
+        { id: 'fullname', text: 'Student Name' },
+        { id: 'gender', text: 'Gender' },
+      ],
+    }
+  },
+}
+</script>

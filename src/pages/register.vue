@@ -3,8 +3,6 @@
     <template #title>
       REGISTER
     </template>
-    <ui-input />
-    <signin-box />
     <ui-form :disabled="false">
       <div>
         User: <ui-input />
