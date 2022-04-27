@@ -2,7 +2,7 @@
   <ui-card>
     <form class="pt-3">
       <div class="flex flex-col px-3">
-        <label for="username" class="h-8 leading-8">User name</label>
+        <label for="username" class="h-8 leading-8">Username {{ store.lang }}</label>
         <input
           ref="username"
           type="text" id="username"
@@ -87,6 +87,7 @@
 </template>
 
 <script>
+import { store } from '../store/store.js'
 
 export default {
   props: {
@@ -108,6 +109,7 @@ export default {
   ],
   data() {
     return {
+      store,
       password: '',
       remember: false,
       ok: true,
@@ -155,6 +157,7 @@ export default {
     signin() {
       // console.log('xxx')
       this.busy = true
+      this.$emit('checking')
       setTimeout(() => {
         this.busy = false
         if (this.username === 'x') {

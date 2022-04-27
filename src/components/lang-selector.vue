@@ -1,5 +1,5 @@
 <template>
-  <select v-model="lang" @change="setLang">
+  <select v-model="store.lang">
     <option value="th">
       ไทย
     </option>
@@ -9,18 +9,14 @@
   </select>
 </template>
 <script>
+// tree shaking
+import { store } from '../store/store.js'
+
 export default {
   data() {
-    let language = localStorage.getItem('lang') || 'th'
     return {
-      lang: language,
+      store,
     }
-  },
-  methods: {
-    setLang() {
-      console.log('lang=', this.lang)
-      localStorage.setItem('lang', this.lang)
-    },
   },
 }
 </script>
