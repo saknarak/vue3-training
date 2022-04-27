@@ -20,4 +20,6 @@ const app = createApp(App)
 
 Object.values(import.meta.globEager('./modules/*.js')).map(i => i.install?.({ app }))
 
+app.config.unwrapInjectedRef = true
+
 app.mount('#app')
