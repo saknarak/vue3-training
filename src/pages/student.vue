@@ -7,6 +7,15 @@
       <template #gender="{ row }">
         <span class="icon" :title="row.gender">{{ row.gender === 'M' ? 'male' : 'female' }}</span>
       </template>
+      <template #fullname="{ row }">
+        {{ row.fname }} {{ row.lname }}
+      </template>
+      <template #actions="{ row }">
+        <ui-button @click="doEdit(row)">
+          Edit
+        </ui-button>
+        <ui-button>Del</ui-button>
+      </template>
     </ui-table>
   </ui-card>
 </template>
@@ -31,6 +40,7 @@ export default {
         { id: 'code', text: 'Student Code' },
         { id: 'fullname', text: 'Student Name' },
         { id: 'gender', text: 'Gender' },
+        { id: 'actions', text: 'Actions' },
       ],
     }
   },

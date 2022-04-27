@@ -2,7 +2,7 @@
   <ui-card>
     <form class="pt-3">
       <div class="flex flex-col px-3">
-        <label for="username" class="h-8 leading-8">Username {{ store.lang }}</label>
+        <label for="username" class="h-8 leading-8">Username {{ lang }}</label>
         <input
           ref="username"
           type="text" id="username"
@@ -87,8 +87,9 @@
 </template>
 
 <script>
-import { store } from '../store/store.js'
-
+// import { store } from '../store/store.js'
+import { mapState } from 'pinia'
+import { useAppStore } from '../store/app-store'
 export default {
   props: {
     form: {
@@ -109,7 +110,7 @@ export default {
   ],
   data() {
     return {
-      store,
+      // store,
       password: '',
       remember: false,
       ok: true,
@@ -129,6 +130,7 @@ export default {
   },
 
   computed: {
+    ...mapState(useAppStore, ['lang']),
     lock() {
       return !this.username || !this.password
     },

@@ -1,5 +1,7 @@
 <template>
-  <select v-model="store.lang">
+  <select v-model="lang">
+    <option>{{ name }}</option>
+    <option>{{ lang }}</option>
     <option value="th">
       ไทย
     </option>
@@ -10,13 +12,38 @@
 </template>
 <script>
 // tree shaking
-import { store } from '../store/store.js'
+// import { store } from '../store/store.js'
+import { mapWritableState, mapActions } from 'pinia'
+import { useAppStore } from '../store/app-store.js'
 
 export default {
+  // setup() {
+  //   const appStore = useAppStore()
+  //   return {
+  //     appStore,
+  //     // lang: appStore.lang,
+  //   }
+  // },
   data() {
     return {
-      store,
+      // store,
+      name: 'Somsak',
     }
+  },
+  computed: {
+    ...mapWritableState(useAppStore, ['lang', 'tempF']),
+    upperName() {
+      return this.name
+    },
+  },
+  methods: {
+    f1() {
+      this.setLang()
+    },
+    f2() {
+
+    },
+    ...mapActions(useAppStore, ['setLang']),
   },
 }
 </script>
