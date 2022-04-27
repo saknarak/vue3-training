@@ -1,15 +1,26 @@
 <template>
-  <table border="1" class="bg-gray-300 border-2 border-blue-400">
-    <thead>
+  <table border="1" class="w-full">
+    <thead class="bg-blue-600 text-white">
       <tr>
-        <td v-for="col in cols" :key="col.id" class="bg-white">
+        <th
+          v-for="col in cols"
+          :key="col.id"
+        >
           {{ col.text }}
-        </td>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="row in rows" :key="row.id">
-        <td v-for="col in cols" :key="col.id" class="bg-white">
+      <tr
+        v-for="row in rows"
+        :key="row.id"
+        class="bg-blue-50 even:(bg-white)"
+      >
+        <td
+          v-for="col in cols"
+          :key="col.id"
+          class="px-2"
+        >
           <slot :name="col.id" :row="row" :col="col">
             {{ row[col.id] }}
           </slot>

@@ -1,11 +1,14 @@
 <template>
-  <h1>Student List</h1>
-  <ui-table :rows="studentList" :cols="columns">
-    <template #gender="{ row }">
-      <span class="icon" :title="row.gender">{{ row.gender === 'M' ? 'male' : 'female' }}</span>
+  <ui-card>
+    <template #title>
+      Student List
     </template>
-  </ui-table>
-  <div>Footer</div>
+    <ui-table :rows="studentList" :cols="columns">
+      <template #gender="{ row }">
+        <span class="icon" :title="row.gender">{{ row.gender === 'M' ? 'male' : 'female' }}</span>
+      </template>
+    </ui-table>
+  </ui-card>
 </template>
 
 <script>
