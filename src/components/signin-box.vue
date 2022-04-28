@@ -1,8 +1,14 @@
 <template>
   <ui-card>
+    <!-- card title -->
+    <template #title>
+      Sign-in
+    </template>
+
+    <!-- card body -->
     <form class="pt-3">
       <div class="flex flex-col px-3">
-        <label for="username" class="h-8 leading-8">Username {{ lang }}</label>
+        <label for="username" class="h-8 leading-8">Username</label>
         <input
           ref="username"
           type="text"
@@ -13,7 +19,7 @@
         >
       </div>
       <div class="flex flex-col px-3">
-        <label for="password" class="h-8 leading-8">Password {{ lock }}</label>
+        <label for="password" class="h-8 leading-8">Password</label>
         <input
           ref="password"
           type="password" id="password"
@@ -22,7 +28,7 @@
           class="border-2 rounded-md h-10 px-2"
         >
       </div>
-      <div class="flex flex-col px-3">
+      <!-- <div class="flex flex-col px-3">
         <label for="password" class="h-8 leading-8">Type</label>
         <select
           v-model="type"
@@ -36,51 +42,28 @@
             {{ text }} {{ idx }}
           </option>
         </select>
-      </div>
-      <!-- <template v-for="n in 5" :key="n">
-          <div>AAA</div>
-          <div>BBB</div>
-        </template> -->
-      <!-- <div class="flex flex-col px-3">
-          <label for="password" class="h-8 leading-8">Type</label>
-          <select>
-            <option
-              v-for="(type2, code) in type2List"
-              :key="code"
-              :value="code"
-            >
-              {{ type2 }}
-            </option>
-          </select>
-        </div> -->
+      </div> -->
       <div class="px-3 h-10 flex items-center gap-2">
         <input type="checkbox" id="remember" v-model="remember" :disabled="busy" class="w-5 h-5">
         <label for="remember">Remember username?</label>
       </div>
     </form>
 
-    <template #title>
-      Sign-in
-    </template>
+    <!-- card actions -->
     <template #actions>
       <ui-button
         ref="signin"
         :disabled="busy"
         @click="signin"
+        icon="home"
       >
         Sign-In
-        <template #icon>
-          <img src="../assets/logo.png" class="w-6 h-6">
-        </template>
       </ui-button>
       <ui-button
         type="reset" :disabled="busy"
         class="border-red-600 bg-white text-black border-2 rounded-md"
         icon="clear"
       >
-        <template #icon>
-          <img src="../assets/logo.png" class="w-6 h-6">
-        </template>
         Reset
       </ui-button>
     </template>

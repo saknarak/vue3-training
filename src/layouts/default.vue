@@ -5,3 +5,17 @@
   <div id="dialog">
   </div>
 </template>
+<script>
+export default {
+  beforeRouteEnter(from, to, next) {
+    let token = localStorage.getItem('token')
+    if (!token) {
+      return next('/signin')
+    }
+
+    next()
+    ///
+    // TODO: get user profile
+  },
+}
+</script>
