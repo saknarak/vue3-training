@@ -9,27 +9,22 @@ meta:
       LOGO
     </div>
     <signin-box
-      v-model:form="form"
       @success="signinSuccess"
       @error="singinError"
     >
     </signin-box>
-    <div>FOOTER {{ isValid }}</div>
-  </div>
-
-  <div v-if="busy" class="fixed top-0 bottom-0 left-0 right-0 opacity-80 bg-gray-400">
-    Please wait...
+    <div>FOOTER</div>
   </div>
 </template>
 
-<script-backup>
+<script>
 import { reactive, computed } from 'vue'
 
 export default {
   props: {
 
   },
-  setup() {
+  setupxxx() {
     const form = reactive({
       username: 'somchai',
       password: '',
@@ -60,38 +55,15 @@ export default {
       a: 1,
       b: 2,
     }
-  }
-}
-</script-backup>
-
-<script setup>
-import { ref, defineProps, reactive, computed } from 'vue'
-
-// syntax sugar
-defineProps({
-  disabled: {
-    type: Boolean,
-    default: true,
   },
-})
+  methods: {
+    signinSuccess() {
+      console.log('signinSuccess')
+      this.$router.replace('/home')
+    },
+    singinError() {
 
-const busy = ref(false)
-
-const form = reactive({
-  username: 'somchai',
-  password: '',
-  remember: false,
-})
-
-const isValid = computed(() => form.username !== '' &&
-        form.password !== '')
-
-const signinSuccess = function(user) {
-  console.log('user=', user)
-  console.log(form.username)
-}
-const singinError = function(err) {
-  console.log('err=', err)
-  // TODO:
+    },
+  },
 }
 </script>

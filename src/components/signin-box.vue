@@ -141,6 +141,8 @@ export default {
         }
         // signin success
         localStorage.setItem('token', data.token)
+        this.$emit('success')
+        // this.$router.replace('/home')
       } catch (e) {
 
       }
