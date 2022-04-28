@@ -19,6 +19,7 @@ meta:
 
 <script>
 import { reactive, computed } from 'vue'
+import { store } from '../store/store.js'
 
 export default {
   props: {
@@ -57,9 +58,27 @@ export default {
     }
   },
   methods: {
-    signinSuccess() {
+    async signinSuccess() {
       console.log('signinSuccess')
-      this.$router.replace('/home')
+      // load profile
+      let token = localStorage.getItem('token')
+      try {
+        let { data } = await this.$axios.get('/api/profile', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        console.log('data=', data)
+        if (!data.profile) {
+          console.log('SORRY...')
+          return
+        }
+        // TODO: save profile to store
+        store.profile = data.profile
+        this.$router.replace('/home')
+      } catch (e) {
+        console.log('ERROR', e)
+      }
     },
     singinError() {
 

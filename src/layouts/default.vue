@@ -13,6 +13,8 @@ export default {
       return next('/signin')
     }
 
+    // TODO: get profile
+
     next()
     ///
     // TODO: get user profile
