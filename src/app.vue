@@ -4,11 +4,8 @@
   </div>
 </template>
 <script>
-import { mapActions } from 'pinia'
-
 export default {
   methods: {
-    ...mapActions(store, ['saveStudent']),
     async doSaveStudent() {
       await this.saveStudent()
     },
