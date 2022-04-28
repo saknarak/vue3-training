@@ -5,19 +5,20 @@
         <label for="username" class="h-8 leading-8">Username {{ lang }}</label>
         <input
           ref="username"
-          type="text" id="username"
-          :value="form.username"
-          @input="$emit('update:form', { ...form, username: $event.target.value })"
+          type="text"
+          id="username"
+          v-model="username"
           :disabled="busy"
           class="border-2 rounded-md h-10 px-2"
-          @keyup.enter.ctrl="onUsernameKeyup"
         >
       </div>
       <div class="flex flex-col px-3">
         <label for="password" class="h-8 leading-8">Password {{ lock }}</label>
         <input
           ref="password"
-          type="password" id="password" v-model="password" :disabled="busy"
+          type="password" id="password"
+          v-model="password"
+          :disabled="busy"
           class="border-2 rounded-md h-10 px-2"
         >
       </div>
@@ -64,7 +65,7 @@
     <template #actions>
       <ui-button
         ref="signin"
-        :disabled="lock || busy"
+        :disabled="busy"
         @click="signin"
       >
         Sign-In
@@ -90,19 +91,8 @@
 // import { store } from '../store/store.js'
 import { mapState } from 'pinia'
 import { useAppStore } from '../store/app-store'
+
 export default {
-  props: {
-    form: {
-      type: Object,
-      default() {
-        return {
-          username: '',
-          password: '',
-          remember: false,
-        }
-      },
-    },
-  },
   emits: [
     'success',
     'error',
@@ -110,7 +100,7 @@ export default {
   ],
   data() {
     return {
-      // store,
+      username: '',
       password: '',
       remember: false,
       ok: true,
@@ -156,18 +146,21 @@ export default {
   },
 
   methods: {
-    signin() {
-      // console.log('xxx')
-      this.busy = true
-      this.$emit('checking')
-      setTimeout(() => {
-        this.busy = false
-        if (this.username === 'x') {
-          this.$emit('error', {})
-        } else {
-          this.$emit('success', { id: 5, name: 'Somsak', username: this.username})
+    async signin() {
+      try {
+        let payload = {
+          username: this.username,
+          password: this.password,
         }
-      }, 3000)
+        let { data, headers } = await this.$axios.post('/api/signin', payload)
+        if (!data.token) {
+          return
+        }
+        // signin success
+        localStorage.setItem('token', data.token)
+      } catch (e) {
+
+      }
     },
     onUsernameKeyup(evt) {
       // console.log('xxxx')
