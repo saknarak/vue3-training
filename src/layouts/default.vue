@@ -26,5 +26,19 @@ export default {
     store.profile = data.profile
     next()
   },
+
+  created() {
+    this.tokenTimer = setInterval(async () => {
+      let token = localStorage.getItem('token')
+      let newToken = await axios.post('/api/auth/token')
+      if (newToken && newToken !== token) {
+        localStorage.setItem('token', newToken)
+        axios.defaults.headers.common.Authorization = `Bearer ${newToken}`
+      }
+    }, 5 * 60 * 1000)
+  },
+  beforeUnmount() {
+    clearInterval(this.tokenTimer)
+  },
 }
 </script>
