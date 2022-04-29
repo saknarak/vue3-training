@@ -60,25 +60,7 @@ export default {
   methods: {
     async signinSuccess() {
       console.log('signinSuccess')
-      // load profile
-      let token = localStorage.getItem('token')
-      try {
-        let { data } = await this.$axios.get('/api/profile', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        console.log('data=', data)
-        if (!data.profile) {
-          console.log('SORRY...')
-          return
-        }
-        // TODO: save profile to store
-        store.profile = data.profile
-        this.$router.replace('/home')
-      } catch (e) {
-        console.log('ERROR', e)
-      }
+      this.$router.replace('/home')
     },
     singinError() {
 

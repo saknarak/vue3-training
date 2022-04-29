@@ -6,18 +6,26 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
+import { store } from '../store/store.js'
+
 export default {
-  beforeRouteEnter(from, to, next) {
+  async beforeRouteEnter(from, to, next) {
     let token = localStorage.getItem('token')
     if (!token) {
       return next('/signin')
     }
-
-    // TODO: get profile
-
+    // GET PROFILE
+    let { data } = await axios.get('/api/profile', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    if (!data.profile) {
+      return next('/signin')
+    }
+    store.profile = data.profile
     next()
-    ///
-    // TODO: get user profile
   },
 }
 </script>
