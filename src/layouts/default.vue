@@ -16,11 +16,10 @@ export default {
       return next('/signin')
     }
     // GET PROFILE
-    let { data } = await axios.get('/api/profile', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`
+    // axios.defaults.headers.common['X-Powered-By'] = 'Somsak'
+
+    let { data } = await axios.get('/api/profile')
     if (!data.profile) {
       return next('/signin')
     }
